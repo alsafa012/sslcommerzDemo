@@ -1,7 +1,4 @@
-# React Template
+# SSLCOMMERZ
 
-- command for run in vs code or other platform
-
-- step 1: npm install
-
-- step 2: npm run dev
+## server-side-code
+- [click here](https://github.com/alsafa012/sslcommerzDemo-server)

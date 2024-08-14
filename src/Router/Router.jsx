@@ -4,11 +4,12 @@ import HomePage from "../Pages/HomePage/HomePage";
 import CancelPayment from "../Pages/HomePage/CancelPayment";
 import FailPayment from "../Pages/HomePage/FailPayment";
 import SuccessPayment from "../Pages/HomePage/SuccessPayment";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 const myCreatedRouter = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    //   errorElement: <ErrorPage></ErrorPage>,
+      errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",

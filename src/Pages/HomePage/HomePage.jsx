@@ -1,29 +1,31 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ErrorPage from "../ErrorPage/ErrorPage";
 // import { PiNavigationArrowDuotone } from "react-icons/pi";
 // <PiNavigationArrowDuotone />
 const HomePage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
-    e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
     const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
+    const amount = form.amount.value;
+    const formData = {
+      name: name,
+      email: email,
+      amount: amount,
+      currency: "BDT",
+    };
+    console.log(formData);
 
-    axios
-      .post("http://localhost:5000/create-payment", {
-        amount: 12000,
-        cur: "USDzzx",
-      })
-      .then((res) => {
-        const reDirectUrl = res.data.paymentUrl;
-        console.log(reDirectUrl);
-        if (reDirectUrl) {
-          window.location.replace(reDirectUrl);
-        }
-        console.log(res.data);
-      });
+    axios.post("http://localhost:5000/create-payment", formData).then((res) => {
+      const reDirectUrl = res.data.paymentUrl;
+      console.log(reDirectUrl);
+      console.log(res.data);
+      if (reDirectUrl) {
+        window.location.replace(reDirectUrl);
+      }
+    });
   };
   const handleDelete = () => {
     axios
@@ -31,9 +33,9 @@ const HomePage = () => {
       .then((res) => console.log(res.data));
   };
   return (
-    <div className="-my-3 flex justify-center items-center min-h-screen py-5 md:py-10 bg-[url('https://i.ibb.co/10kGMgs/Cover-EBE-1170x675.jpg')] bg-no-repeat bg-cover">
+    <div className="flex justify-cente items-cente min-h-screen py-5 md:py-10 bg-[url('https://i.ibb.co/10kGMgs/Cover-EBE-1170x675.jpg')] bg-no-repeat bg-cover">
       {/* <PageTitle title="Login"></PageTitle> */}
-      <div className="relative border border-[#aaa69d] backdrop-blur-xl w-4/5 md:w-1/2 lg:w-1/3 mx-auto p-5 rounded-xl overflow-hidden">
+      <div className="relative border border-[#aaa69d] backdrop-blur-xl w-4/5 md:w-1/2 lg:w-1/3 mx-auto p-5 rounded-xl overflow-hidden max-h-max">
         {/* <p className="text-3xl font-bold mb-6 text-center mt-5">Login Here..</p> */}
         <div className="flex justify-center mx-auto">
           <img
@@ -46,7 +48,7 @@ const HomePage = () => {
           Welcome Back
         </h3>
         <p className="mt-1 text-center text-gray-700">
-          Login or create account
+         SSLCommerz Payment Gateway
         </p>
         <Link to="/">
           <button
@@ -57,6 +59,19 @@ const HomePage = () => {
           </button>
         </Link>
         <form onSubmit={handleLogin}>
+          {/* Name */}
+          <div className="">
+            <label className="label text-black font-medium">
+              <span className="">Name</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              className="input bg-transparent input-bordered text-black font-medium w-full"
+              required
+            />
+          </div>
           {/* Email */}
           <div className="">
             <label className="label text-black font-medium">
@@ -65,29 +80,31 @@ const HomePage = () => {
             <input
               type="text"
               name="email"
-              placeholder="Email"
+              placeholder="Your Email"
               className="input bg-transparent input-bordered text-black font-medium w-full"
               required
             />
           </div>
+          {/* amount */}
           <div className=" relative">
             <label className="label text-black font-medium">
-              <span className="">Password</span>
+              <span className="">Amount</span>
             </label>
             <input
-              type="text"
-              name="password"
-              placeholder="Password"
+              type="number"
+              name="amount"
+              placeholder="Amount"
               className="input bg-transparent input-bordered text-black font-medium w-full"
               required
             />
           </div>
 
           <div className="mt-6">
-            <button className="btn btn-secondary w-full">Login</button>
+            <button className="btn btn-secondary w-full">Pay</button>
           </div>
         </form>
       </div>
+      <ErrorPage></ErrorPage>
     </div>
   );
 };
